@@ -114,7 +114,7 @@ export default function Board() {
     if (winner) {
         status = "Winner : " + (squares[winner[0]]);
     } else {
-        status = "NextPlayer : " + (xIsNext ? 'X' : 'O');
+        status = "Next Player : " + (xIsNext ? 'X' : 'O');
     }
 
     // const atmove = "You are at move #" + (history.length - 1);
