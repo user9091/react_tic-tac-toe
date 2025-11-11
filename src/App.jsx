@@ -1,6 +1,8 @@
 import { useState } from "react";
 import React from "react";
 import * as motion from "motion/react-client";
+import Particles from './Particles';
+import RotatingText from './RotatingText'
 
 export default function Board() {
     const [xIsNext, setXIsNext] = useState(true);
@@ -156,24 +158,46 @@ export default function Board() {
     // }
 
     return (
-        <div className="game">
-            <div className="root">
+        <div style={{ position: 'relative', width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <RotatingText
+                texts={['TIC', 'TAC', 'TOE']}
+                mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+                staggerFrom={"last"}
+                initial={{ y: "20%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-20%" }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+                style={{
+                    position: 'absolute', zIndex: 2, top: 80, fontSize: '3rem', fontWeight: 'bold'
+                }}
+            />
+            <Particles
+                particleColors={['#000000']}
+                particleCount={200}
+                particleSpread={10}
+                speed={0.1}
+                particleBaseSize={100}
+                moveParticlesOnHover={false}
+                alphaParticles={false}
+                disableRotation={false}
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 0,
+                }}
+            />
+            <div style={{ position: 'absolute', zIndex: 1, top: 200, left: 0, width: '100%', height: '100%' }}>
                 <>{mapRows}</>
                 <p className="temp status">{status}</p>
-                {/* <p className="temp atmove">{atmove}</p> */}
                 <motion.div className="temp" drag dragMomentum={true}>
                     <button className="button" onClick={Reset}>Reset</button>
                 </motion.div>
-            </div>
-            <div className="temp">
-                {/* <label class="switch">
-                    <input type="checkbox" onChange={toggle}>
-                    </input>
-                    <span class="slider round"></span>
-                </label> */}
-                {/* <ol>
-                    {reverse}
-                </ol> */}
             </div>
         </div>
     );
